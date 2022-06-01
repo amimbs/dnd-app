@@ -11,7 +11,6 @@ export default function Register() {
     const [passwordReg, setPasswordReg] = useState('');
 
     const register = () => {
-        console.log('i ran')
         axios.post("http://localhost:3001/register", {
             firstName: firstNameReg,
             lastName: lastNameReg,
@@ -70,9 +69,9 @@ export default function Register() {
                 </input>
 
                 {/* this prevents the onlick from running immediately on page load */}
-                <button type="submit" onClick={register}> Register </button>
+                <button onClick={register}> Register </button>
             </div>
 
         </div>
-    )
-}
+    );
+};
