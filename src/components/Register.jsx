@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function Register() {
 
@@ -10,21 +11,25 @@ export default function Register() {
     const [userNameReg, setUserNameReg] = useState('');
     const [passwordReg, setPasswordReg] = useState('');
 
-    const register = () => {
-        axios.post("http://localhost:3001/register", {
-            firstName: firstNameReg,
-            lastName: lastNameReg,
-            email: emailReg,
-            username: userNameReg,
-            password: passwordReg
-        }).then((response) => {
-            console.log(response);
+    const register = async () => {
+
+        try {
+            await axios.post("http://localhost:3001/register", {
+                firstName: firstNameReg,
+                lastName: lastNameReg,
+                email: emailReg,
+                username: userNameReg,
+                password: passwordReg
+            });
+        } catch (error) {
+            toast.error(error.response.data.error)
+        } finally {
             setFirstNameReg('');
             setLastNameReg('');
             setEmailReg('');
             setUserNameReg('');
             setPasswordReg('');
-        });
+        };
     };
 
     return (

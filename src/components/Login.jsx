@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function Login() {
-    const [username, setUserName] = useState('')
-    const [password, setPassword] = useState('')
+    const [username, setUserName] = useState('');
+    const [password, setPassword] = useState('');
 
-    const login = () => {
-        axios.post("http://localhost:3001/login", {
-            username: username,
-            password: password
-        }).then((response) => {
-            console.log(response);
+    const login = async () => {
+        try {
+            await axios.post("http://localhost:3001/login", {
+                username: username,
+                password: password
+            });
+        } catch (error) {
+            toast.error(error.response.data.error);
+        }
+        finally {
             setUserName('');
             setPassword('');
-        });
+        };
     };
 
     return (
