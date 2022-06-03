@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 export default function Login() {
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [loginStatus, setLoginStatus] = useState('');
+
+    axios.defaults.withCredentials = true;
 
     const login = async () => {
         try {
@@ -20,6 +23,17 @@ export default function Login() {
             setPassword('');
         };
     };
+
+    // is there a way to clean this up?
+    useEffect(() => {
+        axios.get("http://localhost:3001/login").then((res) => {
+            if (res.data.loggedIn == false) {
+                
+            } else {
+                setLoginStatus(res.data.user.username);
+            }
+        });
+    }, []);
 
     return (
         <div className="Login">
@@ -43,6 +57,8 @@ export default function Login() {
 
                 <button onClick={login}> Login </button>
             </div>
+
+            <h1>Welcome {loginStatus}</h1>
 
         </div>
     );

@@ -11,8 +11,9 @@ export default function Register() {
     const [userNameReg, setUserNameReg] = useState('');
     const [passwordReg, setPasswordReg] = useState('');
 
-    const register = async () => {
+    axios.defaults.withCredentials = true;
 
+    const register = async () => {
         try {
             await axios.post("http://localhost:3001/register", {
                 firstName: firstNameReg,
