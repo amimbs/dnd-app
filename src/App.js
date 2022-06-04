@@ -15,8 +15,7 @@ export default function App() {
       <Register />
 
       <Login />
-
-
+      
     </div>
   );
 };
